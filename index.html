@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Uploader Tugas | SPARTA 2017</title>
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="col-xl-8 col-md-6 col-12 col-hidden p5">
+      <div style="text-align: center;">
+        <img src="assets/img/logo-banner.png" style="max-width: 200px"/>
+      </div>
+    </div>
+    <div class="col-xl-4 col-md-6 col-12">
+
+    <div id="sect1" class="card">
+      <div class="container">
+        <h1> SPARTA HMIF 2017 </h1>
+        <h3> Uploader Tugas SPARTA </h3>
+        <div class = "input">
+          <label>NIM</label>
+          <input sectid="1" type="text" name="nim" id="nim" placeholder="">
+          <small class="help" for="nim"> Gunakan NIM TPB. </small>
+        </div>
+        <div class = "input">
+          <label>Tugas</label>
+          <select>
+            <option value="A">A</option>
+            <option value="A">B</option>
+            <option value="A">C</option>
+            <option value="A">D</option>
+          </select>
+        </div>
+        <div class="input">
+          <label>File</label>
+          <input sectid="1" type="File" name="filetugas" id="filetugas" placeholder="">
+        </div>
+        <button type="button" onclick="goToSection(2)">Submit<i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="assets/js/script.js"></script>
+</html>
