@@ -1,46 +1,23 @@
 var students = []
 var currentSection = 1
-var url = "https://docs.google.com/forms/d/e/1FAIpQLSdXA_9eg4wk2w6AY5-vemegllklhpD86eDiskFQe4IIUb2YYg/formResponse"
-var fields = {
-  nim: "entry.1891528819",
-  nama: "entry.725355731",
-  jurusan: "entry.1106068168",
-  email: "entry.2084411624",
-  alamat: "entry.1428398795",
-  notelp: "entry.1264431935",
-  idline: "entry.1356309428",
-  namawali: "entry.1178902800",
-  hubwali: "entry.187933075",
-  nowali: "entry.148348283",
-  goldar: "entry.2145182059",
-  penyakit: "entry.1479599575",
-  dikdiv: "entry.371499753"
-}
+var post_url = "https://script.google.com/macros/s/AKfycbzwxJq8AXdJgfpdO_6aTzK1XxYfOUIPy_My7OtIX0sbxBfB-5wv/exec?action=POST_ASSIGNMENT"
 var errors = { }
 
-$.getJSON("data/stei17.json", (data) => { students = data })
-
 $(document).ready(() => {
-  $("input[name=nim]").change(() => {
-    removeError("name")
+  $("#uploadhelp").hide()
+  $("#fileraw").on("change", (e) => {
+    $("#uploadhelp").show()
+    var file = e.target.files[0]
+    var fr = new FileReader()
 
-    students.forEach((student, index) => {
-      if (student.nim_tpb == $("input[name=nim]").val()) {
-        $("input[name=nama]").val(student.name)
-      }
-    })
+    $("#filename").val(file.name)
+    fr.onload = (e) => {
+      $("#file").val(e.target.result.replace(/^.*,/, ""))
+      $("#uploadhelp").hide()
+    }
+    fr.readAsDataURL(file)
   })
 })
-
-validateRadioBoxChecked = (id) => {
-  let selector = "input[name=" + id + "]:checked";
-  if (!$(selector).val()) {
-    let errorId = parseInt($(selector + ":first").attr("sectid"))
-    addError(id, errorId)
-  } else {
-    removeError(id)
-  }
-}
 
 validateInputTextField = (id) => {
   let selector = "input[name=" + id + "]";
@@ -98,52 +75,29 @@ prevSection = (id) => {
 
 validateForm = () => {
   validateInputTextField("nim");
-  validateInputTextField("nama");
-  validateInputTextField("email");
-  validateInputTextField("alamat");
-  validateInputTextField("notelp");
-  validateInputTextField("idline");
-  validateInputTextField("namawali");
-  validateInputTextField("hubwali");
-  validateInputTextField("nowali");
-
-  validateRadioBoxChecked("jurusan");
-  validateRadioBoxChecked("goldar");
 
   return $.isEmptyObject(errors);
 }
 
-submit = () => {
+submitFile = () => {
   if (validateForm()) {
     let post_data = { }
-    for (var field in fields) {
-      if ($("textarea#" + field).length) {
-        post_data[fields[field]] = $("textarea#"+field).val() 
-      } else if ($("input[name=" + field + "]").attr("type") == "number") {
-        post_data[fields[field]] = "'" + $("input[name=" + field + "]").val()
-      } else if ($("input[name=" + field + "]").attr("type") == "radio") {
-        post_data[fields[field]] = $("input[name=" + field + "]:checked").val()
-      } else {
-        post_data[fields[field]] = $("input[name=" + field + "]").val()
-      }
-    }
+    post_data["nim"] = $("#nim").val()
+    post_data["name"] = $("#name").val()
+    post_data["filename"] = $("#filename").val()
+    post_data["file"] = $("#file").val()
+    $("#submitButton").html("Submitting...")
+
     $.post({
-      url: url,
+      url: post_url,
       data: post_data,
-      complete: function() {
-        goToSection(6)
+      success: () => {
+        goToSection(2)
+      },
+      fail: (xhr, textStatus, errorThrown) => {
+        $("#errorMsg").html(xhr.responseText)
+        goToSection(3)
       }
     })
-  } else {
-    let errorIds = Object.keys(errors);
-    let lowestErrorSection = errors[errorIds[0]];
-
-    for (const errorId in errorIds) {
-      if (errors[errorId] < lowestErrorSection) {
-        lowestErrorSection = errors[errorId];
-      }
-    }
-
-    goToSection(lowestErrorSection);
   }
 }

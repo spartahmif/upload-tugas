@@ -17,31 +17,48 @@
     </div>
     <div class="col-xl-4 col-md-6 col-12">
 
-    <div id="sect1" class="card">
-      <div class="container">
-        <h1> SPARTA HMIF 2017 </h1>
-        <h3> Uploader Tugas SPARTA </h3>
-        <div class = "input">
-          <label>NIM</label>
-          <input sectid="1" type="text" name="nim" id="nim" placeholder="">
-          <small class="help" for="nim"> Gunakan NIM TPB. </small>
+      <div id="sect1" class="card">
+        <div class="container">
+          <h1> SPARTA HMIF 2017 </h1>
+          <h3> Uploader Tugas SPARTA </h3>
+          <div class = "input">
+            <label>NIM</label>
+            <input type="text" name="nim" id="nim" placeholder="" validate="16517\d{3}">
+            <small class="help" for="nim"> Gunakan NIM TPB. </small>
+          </div>
+          <div class = "input">
+            <label>Tugas</label>
+            <select name="name" id="name">
+              <option value="TUGAS01">TUGAS01</option>
+            </select>
+          </div>
+          <div class="input">
+            <label>File</label>
+            <input type="file" name="fileraw" id="fileraw" placeholder="">
+            <small class="help" for="file"> Gunakan ekstensi *.zip </small>
+            <small id="uploadhelp"> Mengupload ... Komputer Anda mungkin tidak merespon untuk sementara waktu. </small>
+          </div>
+          <input type="hidden" name="file" id="file">
+          <input type="hidden" name="filename" id="filename">
+          <button type="button" onclick="submitFile()" id="submitButton">Submit<i class="fas fa-arrow-right"></i></button>
         </div>
-        <div class = "input">
-          <label>Tugas</label>
-          <select>
-            <option value="A">A</option>
-            <option value="A">B</option>
-            <option value="A">C</option>
-            <option value="A">D</option>
-          </select>
-        </div>
-        <div class="input">
-          <label>File</label>
-          <input sectid="1" type="File" name="filetugas" id="filetugas" placeholder="">
-        </div>
-        <button type="button" onclick="goToSection(2)">Submit<i class="fas fa-arrow-right"></i></button>
       </div>
-    </div>
+
+      <div id="sect2" class="card hidden">
+        <div class="container">
+          <h1> SPARTA HMIF 2017 </h1>
+          <h3> File berhasil diupload! </h3>
+          <p> Tetap jaga semangatnya! </p>
+        </div>
+      </div>
+
+      <div id="sect3" class="card hidden">
+        <div class="container">
+          <h1> SPARTA HMIF 2017 </h1>
+          <p>Error: <span id="errorMsg"></span></p>
+          <p> Screenshot dan kirim ini ke msdmsparta17@gmail.com supaya cepat diperbaiki.</p>
+        </div>
+      </div>
     </div>
   </div>
 </body>
