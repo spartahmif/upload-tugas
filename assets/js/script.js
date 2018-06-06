@@ -1,6 +1,7 @@
 var students = []
 var currentSection = 1
 var post_url = "https://script.google.com/macros/s/AKfycbzwxJq8AXdJgfpdO_6aTzK1XxYfOUIPy_My7OtIX0sbxBfB-5wv/exec?action=POST_ASSIGNMENT"
+var get_url = "https://script.googleusercontent.com/macros/echo?user_content_key=C8Q9dXAS_hqXmLJLXQflsJIeHCLieADahTk9kl_2chabsWUMR69DNaAQbAVu1piuP5oLFMGPwezVQdQF1hNujlFEItyh3ut6m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnNHPGc3xkfaz1LdidAuwJP8rLNS6y1_hoq2womiO0BfGJ4gPoS1TKp1QCYuNzWwGRvs0Sp-6Qke277iHlTyRM7Fe3pf2s161KlFwDYnpat1RuY0Vh9Dso1g&lib=MoDMSa-u8He-AWCSgL7s-BX9CcG857dnx"
 var errors = { }
 
 $(document).ready(() => {
@@ -17,6 +18,8 @@ $(document).ready(() => {
     }
     fr.readAsDataURL(file)
   })
+
+  getRegistered(showRegistered)
 })
 
 validateInputTextField = (id) => {
@@ -100,4 +103,39 @@ submitFile = () => {
       }
     })
   }
+}
+
+getRegistered = (cb) => {
+  let list = $("#list")
+  list.html("Loading ...")
+
+  $.get({
+    url: get_url,
+    success: (data) => {
+      cb(JSON.parse(data))
+    },
+    error: (err) => {
+      list.html("Error: " + err)
+    }
+  })
+}
+
+showRegistered = (rows) => {
+  let list = $("#list")
+  list.empty()
+  rows.forEach((item, index) => {
+    let litem = $("<div></div>", {class: "list-item"})
+    let date = new Date(item[0])
+    litem.html(
+      "["
+      + item[1]
+      + "] "
+      + item[2]
+      + " ("
+      + date.toLocaleDateString("id-ID")
+      + " "
+      + date.toLocaleTimeString("id-ID")
+      + ")")
+    list.append(litem)
+  })
 }

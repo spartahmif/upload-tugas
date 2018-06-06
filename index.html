@@ -38,6 +38,7 @@
             <small class="help" for="file"> Gunakan ekstensi *.zip </small>
             <small id="uploadhelp"> Mengupload ... Komputer Anda mungkin tidak merespon untuk sementara waktu. </small>
           </div>
+          <p> Kamu bisa periksa apakah datamu sudah masuk atau belum <a onclick="goToSection(4)">di sini</a>. </p>
           <input type="hidden" name="file" id="file">
           <input type="hidden" name="filename" id="filename">
           <button type="button" onclick="submitFile()" id="submitButton">Submit<i class="fas fa-arrow-right"></i></button>
@@ -49,6 +50,7 @@
           <h1> SPARTA HMIF 2017 </h1>
           <h3> File berhasil diupload! </h3>
           <p> Tetap jaga semangatnya! </p>
+          <p> Kamu bisa periksa apakah datamu sudah masuk atau belum <a onclick="goToSection(4)">di sini</a>. </p>
         </div>
       </div>
 
@@ -57,6 +59,17 @@
           <h1> SPARTA HMIF 2017 </h1>
           <p>Error: <span id="errorMsg"></span></p>
           <p> Screenshot dan kirim ini ke msdmsparta17@gmail.com supaya cepat diperbaiki.</p>
+        </div>
+      </div>
+
+      <div id="sect4" class="card float-right hidden">
+        <div class="container">
+          <h1> Data Tugas SPARTA </h1>
+          <button type="button" onclick="goToSection(1)">Kembali<i class="fas fa-arrow-left"></i></button>
+          <p> Data registrasi yg sudah diterima: </p>
+          <div id="list">
+          </div>
+          <p> Jika ada masalah, silakan hubungi msdmsparta17@gmail.com</p>
         </div>
       </div>
     </div>
